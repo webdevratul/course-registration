@@ -11,6 +11,7 @@ const CourseMenu = ({ courseMenus }) => {
           {idx + 1}.{course.course_name}
         </h1>
       ))}
+      <hr className="my-4"/>
     </div>
   );
 };

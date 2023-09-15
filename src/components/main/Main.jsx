@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import CourseMenu from "../courseMenu/CourseMenu";
 import Courses from "../courses/Courses";
+import Swal from "sweetalert2";
 
 const Main = () => {
   const [courses, setCourses] = useState([]);
@@ -15,7 +16,12 @@ const Main = () => {
   const handleSelectCourse = (course) => {
     const isExist = courseMenus.find((item) => item.id === course.id);
     if (isExist) {
-      alert("hello");
+      Swal.fire({
+        title: "Error !",
+        text: "This Course is already seleted !",
+        icon: "error",
+        confirmButtonText: "Clear",
+      });
     } else {
       const newCourseMenu = [...courseMenus, course];
       setCourseMenu(newCourseMenu);

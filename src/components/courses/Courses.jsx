@@ -1,6 +1,6 @@
 const Course = ({ course, handleSelectCourse }) => {
   const { image, course_name, details, credit, price } = course;
- 
+  
   return (
     <div className="bg-[#fff] m-4 p-4 rounded-xl">
       <img className="w-full" src={image} alt="" />

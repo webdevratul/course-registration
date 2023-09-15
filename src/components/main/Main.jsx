@@ -17,8 +17,8 @@ const Main = () => {
     const isExist = courseMenus.find((item) => item.id === course.id);
     if (isExist) {
       Swal.fire({
-        title: "Error !",
-        text: "This Course is already seleted !",
+        title: "Error!",
+        text: "This course is already selected try to another one.",
         icon: "error",
         confirmButtonText: "Clear",
       });
@@ -41,7 +41,7 @@ const Main = () => {
           ))}
         </div>
         <div className="w-[20%] m-4 rounded-lg">
-          <CourseMenu courseMenus={courseMenus}></CourseMenu>
+           <CourseMenu courseMenus={courseMenus}></CourseMenu>
         </div>
       </div>
     </>

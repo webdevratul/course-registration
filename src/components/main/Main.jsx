@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 const Main = () => {
   const [courses, setCourses] = useState([]);
   const [courseMenus, setCourseMenu] = useState([]);
+  const [remaining, setRemaining] = useState(0);
+  const [totalCredit, setTotalCredit] = useState(0);
 
   useEffect(() => {
     fetch("course.json")
@@ -15,16 +17,36 @@ const Main = () => {
 
   const handleSelectCourse = (course) => {
     const isExist = courseMenus.find((item) => item.id === course.id);
+
+    let count = course.credit;
+
     if (isExist) {
-      Swal.fire({
+      return Swal.fire({
         title: "Error!",
         text: "This course is already selected try to another one.",
         icon: "error",
         confirmButtonText: "Clear",
       });
     } else {
-      const newCourseMenu = [...courseMenus, course];
-      setCourseMenu(newCourseMenu);
+      courseMenus.forEach((item) => {
+        count += item.credit;
+      });
+
+      let totalRemaining = 20 - count;
+
+      if (count > 20) {
+        return Swal.fire({
+          title: "Error!",
+          text: "Course Credit Exceed",
+          icon: "error",
+          confirmButtonText: "Clear",
+        });
+      } else {
+        setTotalCredit(count);
+        setRemaining(totalRemaining);
+        const newCourseMenu = [...courseMenus, course];
+        setCourseMenu(newCourseMenu);
+      }
     }
   };
 
@@ -41,7 +63,11 @@ const Main = () => {
           ))}
         </div>
         <div className="w-[20%] m-4 rounded-lg">
-           <CourseMenu courseMenus={courseMenus}></CourseMenu>
+          <CourseMenu
+            courseMenus={courseMenus}
+            remaining={remaining}
+            totalCredit={totalCredit}
+          ></CourseMenu>
         </div>
       </div>
     </>
